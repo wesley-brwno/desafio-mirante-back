@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -46,7 +47,12 @@ class ProjetoServiceTest {
     }
 
     @Test
-    void incluirCidade() {
+    void incluirCidade_DevePersistirCidadeSemLancarExceptions_QuandoBemSucedido() {
+        BDDMockito.when(cidadeRepository.save(ArgumentMatchers.any(Cidade.class))).thenReturn(cidadeValida);
+        Cidade cidade = criaCidadeParaSerSalva();
+
+        Assertions.assertThatCode(() -> cidadeRepository.save(cidade))
+                .doesNotThrowAnyException();
     }
 
     @Test
@@ -60,6 +66,14 @@ class ProjetoServiceTest {
     private Cidade criaCidadeValida() {
         Cidade cidade = new Cidade();
         cidade.setId(1L);
+        cidade.setNome("São Paulo");
+        cidade.setUf("SP");
+        cidade.setCapital(true);
+        return cidade;
+    }
+
+    private Cidade criaCidadeParaSerSalva() {
+        Cidade cidade = new Cidade();
         cidade.setNome("São Paulo");
         cidade.setUf("SP");
         cidade.setCapital(true);
