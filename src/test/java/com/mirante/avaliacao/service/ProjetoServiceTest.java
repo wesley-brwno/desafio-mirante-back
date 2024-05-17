@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)
 class ProjetoServiceTest {
@@ -56,7 +57,13 @@ class ProjetoServiceTest {
     }
 
     @Test
-    void alterarCidade() {
+    void alterarCidade_DeveAtualizarCidadeSemLancarExcptions_QuandoBemSuccedido() {
+        BDDMockito.when(cidadeRepository.save(ArgumentMatchers.any(Cidade.class))).thenReturn(cidadeValida);
+        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.ofNullable(cidadeValida));
+        CidadeDTO cidadeDTO = criaCidadeDtoValido();
+
+        Assertions.assertThatCode(() -> projetoService.alterarCidade(cidadeDTO))
+                .doesNotThrowAnyException();
     }
 
     @Test
