@@ -9,6 +9,6 @@ import com.mirante.avaliacao.model.Cidade;
 /** Repositório para entidade Cidade */
 //----------------------------------------------
 @Repository
-public interface CidadeRepository {
+public interface CidadeRepository extends JpaRepository<Cidade, Long>{
 	
 }
