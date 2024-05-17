@@ -44,4 +44,13 @@ public class ProjetoService {
 	public void excluirCidade(Long idCidade) {
 		
 	}
+
+	private Cidade mapCidadeDtoParaEntidade(CidadeDTO cidadeDTO) {
+		Cidade cidade = new Cidade();
+		cidade.setId(cidadeDTO.getId());
+		cidade.setNome(cidadeDTO.getNome());
+		cidade.setUf(cidadeDTO.getUf());
+		cidade.setCapital(cidadeDTO.getCapital());
+		return cidade;
+	}
 }
