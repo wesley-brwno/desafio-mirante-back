@@ -25,6 +25,11 @@ public class CidadeDTO {
     /** Carrega o DTO com dados da entidade */
     //-----------------------------------------------
     public static CidadeDTO toDTO(Cidade cidade) {
-    	return null;
+        CidadeDTO cidadeDTO = new CidadeDTO();
+        cidadeDTO.id = cidade.getId();
+        cidadeDTO.nome = cidade.getNome();
+        cidadeDTO.uf = cidade.getUf();
+        cidadeDTO.capital = cidade.getCapital();
+        return cidadeDTO;
     }
 }
