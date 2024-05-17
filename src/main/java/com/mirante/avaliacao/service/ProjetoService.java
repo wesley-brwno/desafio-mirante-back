@@ -27,8 +27,8 @@ public class ProjetoService {
 	//----------------------------------------------------------
 	/** Método chamado para incluir uma nova cidade */
 	//----------------------------------------------------------	
-	public void incluirCidade(CidadeDTO dto) {    	
-		
+	public void incluirCidade(CidadeDTO dto) {
+		repository.save(mapCidadeDtoParaEntidade(dto));
 	}
 
 	//----------------------------------------------------------
