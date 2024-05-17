@@ -49,9 +49,9 @@ class ProjetoServiceTest {
     @Test
     void incluirCidade_DevePersistirCidadeSemLancarExceptions_QuandoBemSucedido() {
         BDDMockito.when(cidadeRepository.save(ArgumentMatchers.any(Cidade.class))).thenReturn(cidadeValida);
-        Cidade cidade = criaCidadeParaSerSalva();
+        CidadeDTO cidadeDTO = criaCidadeDtoParaSerSalvo();
 
-        Assertions.assertThatCode(() -> cidadeRepository.save(cidade))
+        Assertions.assertThatCode(() -> projetoService.incluirCidade(cidadeDTO))
                 .doesNotThrowAnyException();
     }
 
@@ -82,5 +82,9 @@ class ProjetoServiceTest {
 
     private CidadeDTO criaCidadeDtoValido() {
         return CidadeDTO.toDTO(criaCidadeValida());
+    }
+
+    private CidadeDTO criaCidadeDtoParaSerSalvo() {
+        return CidadeDTO.toDTO(criaCidadeParaSerSalva());
     }
 }
