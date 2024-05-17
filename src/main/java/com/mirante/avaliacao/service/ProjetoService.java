@@ -3,6 +3,7 @@ package com.mirante.avaliacao.service;
 import java.util.List;
 
 import com.mirante.avaliacao.model.Cidade;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.mirante.avaliacao.dto.CidadeDTO;
@@ -52,5 +53,10 @@ public class ProjetoService {
 		cidade.setUf(cidadeDTO.getUf());
 		cidade.setCapital(cidadeDTO.getCapital());
 		return cidade;
+	}
+
+	private Cidade localizarCidadePorId(Long id) {
+		return repository.findById(id).orElseThrow(() ->
+				new EntityNotFoundException("Cidade com id " + id + " não foi encontrada"));
 	}
 }
