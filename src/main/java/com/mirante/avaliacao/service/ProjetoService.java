@@ -2,6 +2,7 @@ package com.mirante.avaliacao.service;
 
 import java.util.List;
 
+import com.mirante.avaliacao.model.Cidade;
 import org.springframework.stereotype.Service;
 
 import com.mirante.avaliacao.dto.CidadeDTO;
@@ -18,9 +19,10 @@ public class ProjetoService {
 	//---------------------------------------------------------
 	/** Método que retorna todas as cidades cadastradas */
 	//---------------------------------------------------------
-	public List<CidadeDTO> pesquisarCidades() {
-		return null;
-	}
+		public List<CidadeDTO> pesquisarCidades() {
+			List<Cidade> cidadeList = repository.findAll();
+			return cidadeList.stream().map(CidadeDTO::toDTO).toList();
+		}
 
 	//----------------------------------------------------------
 	/** Método chamado para incluir uma nova cidade */
