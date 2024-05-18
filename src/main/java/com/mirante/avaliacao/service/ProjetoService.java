@@ -20,10 +20,10 @@ public class ProjetoService {
 	//---------------------------------------------------------
 	/** Método que retorna todas as cidades cadastradas */
 	//---------------------------------------------------------
-		public List<CidadeDTO> pesquisarCidades() {
-			List<Cidade> cidadeList = repository.findAll();
-			return cidadeList.stream().map(CidadeDTO::toDTO).toList();
-		}
+	public List<CidadeDTO> pesquisarCidades() {
+		List<Cidade> cidadeList = repository.findAll();
+		return cidadeList.stream().map(CidadeDTO::toDTO).toList();
+	}
 
 	//----------------------------------------------------------
 	/** Método chamado para incluir uma nova cidade */
