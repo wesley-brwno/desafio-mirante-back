@@ -1,20 +1,24 @@
 package com.mirante.avaliacao.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.model.Cidade;
 import com.mirante.avaliacao.service.ProjetoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -46,7 +50,14 @@ class CidadeControllerTest {
     }
 
     @Test
-    void incluirCidade() {
+    void incluirCidade_DeveRetornarStatusHttp201Created_QuandoBemSuccedido() throws Exception {
+        BDDMockito.doNothing().when(projetoService).incluirCidade(ArgumentMatchers.any(CidadeDTO.class));
+        CidadeDTO cidadeDTO = criaCidadeDtoParaSerSalvo();
+
+        mockMvc.perform(post("/cidades")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cidadeDTO)))
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -68,5 +79,11 @@ class CidadeControllerTest {
 
     private CidadeDTO criaCidadeDtoValido() {
         return CidadeDTO.toDTO(criaCidadeValida());
+    }
+
+    private CidadeDTO criaCidadeDtoParaSerSalvo() {
+        Cidade cidade = criaCidadeValida();
+        cidade.setId(null);
+        return CidadeDTO.toDTO(cidade);
     }
 }
