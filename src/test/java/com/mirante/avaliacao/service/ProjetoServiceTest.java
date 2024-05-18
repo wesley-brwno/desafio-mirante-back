@@ -87,6 +87,16 @@ class ProjetoServiceTest {
                 .doesNotThrowAnyException();
     }
 
+    @Test
+    void excluirCidade_DeveLancarEntityNotFoundException_QuandoNaoHaCidade() {
+        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
+        Long cidadeId = 999L;
+        Assertions.assertThatCode(() -> projetoService.excluirCidade(cidadeId))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Cidade com id " + cidadeId + " não foi encontrada");
+
+    }
+
     private Cidade criaCidadeValida() {
         Cidade cidade = new Cidade();
         cidade.setId(1L);
