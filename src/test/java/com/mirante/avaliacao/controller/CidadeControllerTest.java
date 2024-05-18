@@ -6,15 +6,12 @@ import com.mirante.avaliacao.model.Cidade;
 import com.mirante.avaliacao.service.ProjetoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@WebMvcTest(CidadeController.class)
 class CidadeControllerTest {
 
     @Autowired
@@ -22,10 +19,8 @@ class CidadeControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    @Mock
+    @MockBean
     private ProjetoService projetoService;
-    @InjectMocks
-    private CidadeController cidadeController;
 
     @BeforeEach
     void setUp() {
@@ -50,8 +45,8 @@ class CidadeControllerTest {
     private Cidade criaCidadeValida() {
         Cidade cidade = new Cidade();
         cidade.setId(1L);
-        cidade.setNome("São Paulo");
-        cidade.setUf("SP");
+        cidade.setNome("Manaus");
+        cidade.setUf("AM");
         cidade.setCapital(true);
         return cidade;
     }
