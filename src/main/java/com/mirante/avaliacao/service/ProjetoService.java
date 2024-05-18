@@ -36,7 +36,8 @@ public class ProjetoService {
 	/** Método chamado para alterar os dados de uma cidade */
 	//----------------------------------------------------------	
 	public void alterarCidade(CidadeDTO dto) {
-				
+		localizarCidadePorId(dto.getId());
+		repository.save(mapCidadeDtoParaEntidade(dto));
 	}
 
 	//----------------------------------------------------------
