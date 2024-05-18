@@ -44,7 +44,8 @@ public class ProjetoService {
 	/** Método chamado para excluir uma cidade */
 	//----------------------------------------------------------	
 	public void excluirCidade(Long idCidade) {
-		
+		Cidade cidade = localizarCidadePorId(idCidade);
+		repository.delete(cidade);
 	}
 
 	private Cidade mapCidadeDtoParaEntidade(CidadeDTO cidadeDTO) {
