@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.repository.CidadeRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 //------------------------------------------------------------------
 /** Service usado para acessar os repositórios da aplicação */
@@ -29,14 +30,16 @@ public class ProjetoService {
 
 	//----------------------------------------------------------
 	/** Método chamado para incluir uma nova cidade */
-	//----------------------------------------------------------	
+	//----------------------------------------------------------
+	@Transactional
 	public void incluirCidade(CidadeDTO dto) {
 		repository.save(mapCidadeDtoParaEntidade(dto));
 	}
 
 	//----------------------------------------------------------
 	/** Método chamado para alterar os dados de uma cidade */
-	//----------------------------------------------------------	
+	//----------------------------------------------------------
+	@Transactional
 	public void alterarCidade(CidadeDTO dto) {
 		localizarCidadePorId(dto.getId());
 		repository.save(mapCidadeDtoParaEntidade(dto));
@@ -44,7 +47,8 @@ public class ProjetoService {
 
 	//----------------------------------------------------------
 	/** Método chamado para excluir uma cidade */
-	//----------------------------------------------------------	
+	//----------------------------------------------------------
+	@Transactional
 	public void excluirCidade(Long idCidade) {
 		Cidade cidade = localizarCidadePorId(idCidade);
 		repository.delete(cidade);
