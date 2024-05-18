@@ -31,14 +31,10 @@ public class CidadeController {
 	//----------------------------------------------------------
 	/** Endpoint para incluir nova cidade */
 	//----------------------------------------------------------
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
 	public void incluirCidade(@RequestBody(required = true) CidadeDTO cidade) {
-		//	TODO: Responde POST em http://localhost:8080/mirante/cidades
-		//	Envia JSON no body:
-		//	{
-		//	 	"nome": "Florianópolis",
-		//	  	"uf": "SC",
-		//	   	"capital": true
-		//	}
+		service.incluirCidade(cidade);
 	}	
 	
 	//----------------------------------------------------------
