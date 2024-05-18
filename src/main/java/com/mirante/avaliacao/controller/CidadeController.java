@@ -40,15 +40,10 @@ public class CidadeController {
 	//----------------------------------------------------------
 	/** Endpoint para alterar cidade */
 	//----------------------------------------------------------
+	@PutMapping
+	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void alterarCidade(@RequestBody(required = true) CidadeDTO cidade) {
-		// TODO: Responde PUT em http://localhost:8080/mirante/cidades
-		//   Envia JSON no body:
-		//   {
-		//     "id": 11,
-		//     "nome": "Blumenau",
-		//     "uf": "SC",
-		//     "capital": false
-		//   }		 		
+		service.alterarCidade(cidade);
 	}		
 	
 	//----------------------------------------------------------
