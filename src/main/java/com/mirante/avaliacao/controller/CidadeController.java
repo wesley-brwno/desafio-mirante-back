@@ -49,7 +49,9 @@ public class CidadeController {
 	//----------------------------------------------------------
 	/** Endpoint para excluir uma cidade */
 	//----------------------------------------------------------
+	@DeleteMapping("{idCidade}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void excluirCidade(@PathVariable(required = true) Long idCidade) {
-		// Responde DELETE em http://localhost:8080/mirante/cidades/{idCidade}		
+		service.excluirCidade(idCidade);
 	}	
 }
