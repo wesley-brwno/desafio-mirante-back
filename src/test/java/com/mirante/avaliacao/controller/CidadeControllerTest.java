@@ -90,7 +90,10 @@ class CidadeControllerTest {
     }
 
     @Test
-    void excluirCidade() {
+    void excluirCidade_DeveRetornarStatusHttp404NotFound_QuandoCidadeNaoExiste() throws Exception {
+        Long cidadeId = 1L;
+        mockMvc.perform(delete("/cidade/{idCidade}", cidadeId))
+                .andExpect(status().isNotFound());
     }
 
     private Cidade criaCidadeValida() {
