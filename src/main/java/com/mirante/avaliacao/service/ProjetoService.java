@@ -41,8 +41,12 @@ public class ProjetoService {
 	//----------------------------------------------------------
 	@Transactional
 	public void alterarCidade(CidadeDTO dto) {
-		localizarCidadePorId(dto.getId());
-		repository.save(mapCidadeDtoParaEntidade(dto));
+		if (dto.getId() != null) {
+			localizarCidadePorId(dto.getId());
+			repository.save(mapCidadeDtoParaEntidade(dto));
+		} else {
+			throw new IllegalArgumentException("O ID da cidade não pode ser nulo");
+		}
 	}
 
 	//----------------------------------------------------------
