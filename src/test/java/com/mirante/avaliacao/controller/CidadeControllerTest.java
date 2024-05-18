@@ -1,6 +1,8 @@
 package com.mirante.avaliacao.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mirante.avaliacao.dto.CidadeDTO;
+import com.mirante.avaliacao.model.Cidade;
 import com.mirante.avaliacao.service.ProjetoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,5 +45,18 @@ class CidadeControllerTest {
 
     @Test
     void excluirCidade() {
+    }
+
+    private Cidade criaCidadeValida() {
+        Cidade cidade = new Cidade();
+        cidade.setId(1L);
+        cidade.setNome("São Paulo");
+        cidade.setUf("SP");
+        cidade.setCapital(true);
+        return cidade;
+    }
+
+    private CidadeDTO criaCidadeDtoValido() {
+        return CidadeDTO.toDTO(criaCidadeValida());
     }
 }
