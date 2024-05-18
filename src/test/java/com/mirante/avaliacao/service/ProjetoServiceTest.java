@@ -79,6 +79,16 @@ class ProjetoServiceTest {
     }
 
     @Test
+    void alterarCidade_DeveLancarIllegalArgumentException_QuandoNaoHaId() {
+        CidadeDTO cidadeDTO = criaCidadeDtoValido();
+        cidadeDTO.setId(null);
+
+        Assertions.assertThatCode(() -> projetoService.alterarCidade(cidadeDTO))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("O ID da cidade não pode ser nulo");
+    }
+
+    @Test
     void excluirCidade_DeveRemoverCidadeSemLancarExceptions_QuandoBemSucedido() {
         BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(cidadeValida));
         Long cidadeId = 1L;
