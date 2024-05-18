@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.model.Cidade;
+import com.mirante.avaliacao.repository.CidadeRepository;
 import com.mirante.avaliacao.service.ProjetoService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -32,6 +33,8 @@ class CidadeControllerTest {
 
     @MockBean
     private ProjetoService projetoService;
+    @MockBean
+    private CidadeRepository cidadeRepository;
 
     private CidadeDTO cidadeDtoValido;
 
@@ -68,7 +71,15 @@ class CidadeControllerTest {
     }
 
     @Test
-    void alterarCidade() {
+    void alterarCidade_DeveRetornarStatusHttp202Accept_QuandoBemSucedido() throws Exception {
+        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(criaCidadeValida()));
+        BDDMockito.doNothing().when(projetoService).incluirCidade(ArgumentMatchers.any(CidadeDTO.class));
+        CidadeDTO cidadeDTO = criaCidadeDtoParaSerAtualizado();
+
+        mockMvc.perform(put("/cidades")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(cidadeDTO)))
+                .andExpect(status().isAccepted());
     }
 
     @Test
