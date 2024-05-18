@@ -61,6 +61,13 @@ class CidadeControllerTest {
     }
 
     @Test
+    void incluirCidade_DeveRetornarStatusHttp400BadRequest_QuandoNaoHaCorpoNaRequisicao() throws Exception {
+        mockMvc.perform(post("/cidades")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
     void alterarCidade() {
     }
 
