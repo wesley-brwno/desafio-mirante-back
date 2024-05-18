@@ -79,7 +79,12 @@ class ProjetoServiceTest {
     }
 
     @Test
-    void excluirCidade() {
+    void excluirCidade_DeveRemoverCidadeSemLancarExceptions_QuandoBemSucedido() {
+        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(cidadeValida));
+        Long cidadeId = 1L;
+
+        Assertions.assertThatCode(() -> projetoService.excluirCidade(cidadeId))
+                .doesNotThrowAnyException();
     }
 
     private Cidade criaCidadeValida() {
