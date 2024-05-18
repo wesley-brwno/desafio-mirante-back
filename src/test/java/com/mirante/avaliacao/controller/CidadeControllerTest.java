@@ -93,4 +93,12 @@ class CidadeControllerTest {
         cidade.setId(null);
         return CidadeDTO.toDTO(cidade);
     }
+
+    private CidadeDTO criaCidadeDtoParaSerAtualizado() {
+        Cidade cidade = criaCidadeValida();
+        cidade.setNome("Padre Bernado");
+        cidade.setUf("GO");
+        cidade.setCapital(false);
+        return CidadeDTO.toDTO(cidade);
+    }
 }
