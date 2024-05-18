@@ -3,6 +3,7 @@ package com.mirante.avaliacao.service;
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.model.Cidade;
 import com.mirante.avaliacao.repository.CidadeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,6 +65,17 @@ class ProjetoServiceTest {
 
         Assertions.assertThatCode(() -> projetoService.alterarCidade(cidadeDTO))
                 .doesNotThrowAnyException();
+    }
+
+    @Test
+    void alterarCidade_DeveLancarEntityNotFoundException_QuandoNaoHaCidade() {
+        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
+        CidadeDTO cidadeDTO = criaCidadeDtoValido();
+        cidadeDTO.setId(999L);
+
+        Assertions.assertThatCode(() -> projetoService.alterarCidade(cidadeDTO))
+                .isInstanceOf(EntityNotFoundException.class)
+                .hasMessage("Cidade com id " + cidadeDTO.getId() + " não foi encontrada");
     }
 
     @Test
