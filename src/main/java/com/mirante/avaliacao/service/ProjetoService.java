@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mirante.avaliacao.model.Cidade;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.mirante.avaliacao.dto.CidadeDTO;
@@ -13,9 +14,10 @@ import com.mirante.avaliacao.repository.CidadeRepository;
 /** Service usado para acessar os repositórios da aplicação */
 //------------------------------------------------------------------
 @Service
+@RequiredArgsConstructor
 public class ProjetoService {
 
-	private CidadeRepository repository ;
+	private final CidadeRepository repository ;
 	
 	//---------------------------------------------------------
 	/** Método que retorna todas as cidades cadastradas */

@@ -10,16 +10,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.service.ProjetoService;
-
+import lombok.RequiredArgsConstructor;
 //--------------------------------------------------
 /** Endpoint para consultar e manter cidades */
 //--------------------------------------------------
 @RestController
 @CrossOrigin
 @RequestMapping("/cidades")
+@RequiredArgsConstructor
 public class CidadeController {
 
-	private ProjetoService service ;
+	private final ProjetoService service ;
 	
 	//----------------------------------------------------------
 	/** Endpoint que retorna todas as cidades cadastradas */
