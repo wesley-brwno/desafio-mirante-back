@@ -91,6 +91,15 @@ class CidadeControllerTest {
     }
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
+    void excluirCidade_DeveRetornarStatus202NoContent_QuandoBemSucedido() throws Exception {
+        Long cidadeId = 1L;
+
+        mockMvc.perform(delete("/cidades/{idCidade}", cidadeId))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
     void excluirCidade_DeveRetornarStatusHttp404NotFound_QuandoCidadeNaoExiste() throws Exception {
         Long cidadeId = 99L;
         BDDMockito.doThrow(new EntityNotFoundException("Cidade com id " + cidadeId + " não foi encontrada"))
