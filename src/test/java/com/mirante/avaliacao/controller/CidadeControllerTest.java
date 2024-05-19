@@ -1,13 +1,10 @@
 package com.mirante.avaliacao.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.model.Cidade;
-import com.mirante.avaliacao.repository.CidadeRepository;
 import com.mirante.avaliacao.service.ProjetoService;
 import jakarta.persistence.EntityNotFoundException;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
@@ -19,7 +16,6 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -35,19 +31,10 @@ class CidadeControllerTest {
 
     @MockBean
     private ProjetoService projetoService;
-    @MockBean
-    private CidadeRepository cidadeRepository;
-
-    private CidadeDTO cidadeDtoValido;
-
-    @BeforeEach
-    void setUp() {
-        cidadeDtoValido = criaCidadeDtoValido();
-    }
 
     @Test
     void pesquisarCidades_DeveRetornarListDeCidadesDTO_QuandoBemSucedido() throws Exception {
-        BDDMockito.when(projetoService.pesquisarCidades()).thenReturn(List.of(cidadeDtoValido));
+        BDDMockito.when(projetoService.pesquisarCidades()).thenReturn(List.of(criaCidadeDtoValido()));
 
         mockMvc.perform(get("/cidades"))
                 .andExpect(status().isOk())
