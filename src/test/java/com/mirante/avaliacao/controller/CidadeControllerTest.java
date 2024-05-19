@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -71,9 +72,8 @@ class CidadeControllerTest {
     }
 
     @Test
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     void alterarCidade_DeveRetornarStatusHttp202Accept_QuandoBemSucedido() throws Exception {
-        BDDMockito.when(cidadeRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(criaCidadeValida()));
-        BDDMockito.doNothing().when(projetoService).incluirCidade(ArgumentMatchers.any(CidadeDTO.class));
         CidadeDTO cidadeDTO = criaCidadeDtoParaSerAtualizado();
 
         mockMvc.perform(put("/cidades")
