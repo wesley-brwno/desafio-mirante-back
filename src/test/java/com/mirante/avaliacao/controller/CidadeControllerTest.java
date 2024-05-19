@@ -6,6 +6,7 @@ import com.mirante.avaliacao.dto.CidadeDTO;
 import com.mirante.avaliacao.model.Cidade;
 import com.mirante.avaliacao.repository.CidadeRepository;
 import com.mirante.avaliacao.service.ProjetoService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
@@ -91,8 +92,11 @@ class CidadeControllerTest {
 
     @Test
     void excluirCidade_DeveRetornarStatusHttp404NotFound_QuandoCidadeNaoExiste() throws Exception {
-        Long cidadeId = 1L;
-        mockMvc.perform(delete("/cidade/{idCidade}", cidadeId))
+        Long cidadeId = 99L;
+        BDDMockito.doThrow(new EntityNotFoundException("Cidade com id " + cidadeId + " não foi encontrada"))
+                        .when(projetoService).excluirCidade(cidadeId);
+
+        mockMvc.perform(delete("/cidades/{idCidade}", cidadeId))
                 .andExpect(status().isNotFound());
     }
 
